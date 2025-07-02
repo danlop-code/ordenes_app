@@ -1,18 +1,35 @@
-{% extends 'base.html' %}
-{% block body %}
 <form method="post">
-  <label>Fecha: <input type="date" name="fecha" value="{{ orden.fecha if orden else '' }}" required></label><br>
-  <label>Proveedor: <input name="proveedor" value="{{ orden.proveedor if orden else '' }}" required></label><br>
-  <label>Responsable: <input name="responsable" value="{{ orden.responsable if orden else '' }}" required></label><br>
-  <label>Remito: <input name="remito" value="{{ orden.remito if orden else '' }}"></label><br>
-  <label>Factura: <input name="factura" value="{{ orden.factura if orden else '' }}"></label><br>
-  <label>Estado:
-    <select name="estado">
-      {% for e in ['pendiente','enviado','recibido'] %}
-        <option value="{{ e }}" {% if orden and orden.estado == e %}selected{% endif %}>{{ e }}</option>
-      {% endfor %}
-    </select>
-  </label><br>
+  <label>Número de Orden</label>
+  <input type="text" name="numero_orden" value="{{ orden.numero_orden if orden else '' }}" />
+
+  <label>Número de Requerimiento</label>
+  <input type="text" name="numero_requerimiento" value="{{ orden.numero_requerimiento if orden else '' }}" />
+
+  <label>Fecha</label>
+  <input type="date" name="fecha" value="{{ orden.fecha.strftime('%Y-%m-%d') if orden else '' }}" required />
+
+  <label>Proveedor</label>
+  <select name="proveedor" required>
+    {% for prov in proveedores %}
+      <option value="{{ prov }}" {% if orden and orden.proveedor == prov %}selected{% endif %}>{{ prov }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Responsable</label>
+  <select name="responsable" required>
+    {% for resp in responsables %}
+      <option value="{{ resp }}" {% if orden and orden.responsable == resp %}selected{% endif %}>{{ resp }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Remito</label>
+  <input type="text" name="remito" value="{{ orden.remito if orden else '' }}" />
+
+  <label>Factura</label>
+  <input type="text" name="factura" value="{{ orden.factura if orden else '' }}" />
+
+  <label>Estado</label>
+  <input type="text" name="estado" value="{{ orden.estado if orden else '' }}" />
+
   <button type="submit">Guardar</button>
 </form>
-{% endblock %}

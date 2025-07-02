@@ -1,27 +1,35 @@
-{% extends 'base.html' %}
-{% block body %}
-<table border="1">
-  <tr>
-    <th>ID</th>
-    <th>Fecha</th>
-    <th>Proveedor</th>
-    <th>Responsable</th>
-    <th>Remito</th>
-    <th>Factura</th>
-    <th>Estado</th>
-    <th>Acciones</th>
-  </tr>
-  {% for orden in ordenes %}
-  <tr>
-    <td>{{ orden.id }}</td>
-    <td>{{ orden.fecha }}</td>
-    <td>{{ orden.proveedor }}</td>
-    <td>{{ orden.responsable }}</td>
-    <td>{{ orden.remito or '-' }}</td>
-    <td>{{ orden.factura or '-' }}</td>
-    <td>{{ orden.estado }}</td>
-    <td><a href="{{ url_for('editar', id=orden.id) }}">Editar</a></td>
-  </tr>
-  {% endfor %}
+<form method="get" action="{{ url_for('index') }}">
+  <input type="text" name="search" placeholder="Buscar orden, remito o factura" value="{{ search or '' }}" />
+  <button type="submit">Buscar</button>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>N° Orden / Requerimiento</th>
+      <th>Fecha</th>
+      <th>Proveedor</th>
+      <th>Responsable</th>
+      <th>Remito</th>
+      <th>Factura</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for orden in ordenes %}
+      <tr>
+        <td>{{ orden.numero_orden }}{% if orden.numero_requerimiento %} / {{ orden.numero_requerimiento }}{% endif %}</td>
+        <td>{{ orden.fecha.strftime('%Y-%m-%d') }}</td>
+        <td>{{ orden.proveedor }}</td>
+        <td>{{ orden.responsable }}</td>
+        <td>{{ orden.remito }}</td>
+        <td>{{ orden.factura }}</td>
+        <td>{{ orden.estado }}</td>
+        <td>
+          <a href="{{ url_for('editar', id=orden.id) }}">Editar</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
 </table>
-{% endblock %}
