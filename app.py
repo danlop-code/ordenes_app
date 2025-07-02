@@ -1,10 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
 from models import db, Orden
 from datetime import datetime
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ordenes.db'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ordenes_db_xr0d_user:ZCblVclkNhYxejHOnDXUbVm4hLDNnBHu@dpg-d1il1sre5dus73a1b8gg-a.ohio-postgres.render.com/ordenes_db_xr0d'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db.init_app(app)
 
 with app.app_context():
