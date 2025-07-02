@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block body %}
+<form method="post">
+  <label>Fecha: <input type="date" name="fecha" value="{{ orden.fecha if orden else '' }}" required></label><br>
+  <label>Proveedor: <input name="proveedor" value="{{ orden.proveedor if orden else '' }}" required></label><br>
+  <label>Responsable: <input name="responsable" value="{{ orden.responsable if orden else '' }}" required></label><br>
+  <label>Remito: <input name="remito" value="{{ orden.remito if orden else '' }}"></label><br>
+  <label>Factura: <input name="factura" value="{{ orden.factura if orden else '' }}"></label><br>
+  <label>Estado:
+    <select name="estado">
+      {% for e in ['pendiente','enviado','recibido'] %}
+        <option value="{{ e }}" {% if orden and orden.estado == e %}selected{% endif %}>{{ e }}</option>
+      {% endfor %}
+    </select>
+  </label><br>
+  <button type="submit">Guardar</button>
+</form>
+{% endblock %}

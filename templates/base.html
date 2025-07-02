@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<head>
+  <title>Órdenes de Compra</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+<body>
+  <h1>Gestión de Órdenes</h1>
+  <nav>
+    <a href="{{ url_for('index') }}">Inicio</a> |
+    <a href="{{ url_for('crear') }}">Nueva orden</a>
+  </nav>
+  <hr>
+  {% block body %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block body %}
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Fecha</th>
+    <th>Proveedor</th>
+    <th>Responsable</th>
+    <th>Remito</th>
+    <th>Factura</th>
+    <th>Estado</th>
+    <th>Acciones</th>
+  </tr>
+  {% for orden in ordenes %}
+  <tr>
+    <td>{{ orden.id }}</td>
+    <td>{{ orden.fecha }}</td>
+    <td>{{ orden.proveedor }}</td>
+    <td>{{ orden.responsable }}</td>
+    <td>{{ orden.remito or '-' }}</td>
+    <td>{{ orden.factura or '-' }}</td>
+    <td>{{ orden.estado }}</td>
+    <td><a href="{{ url_for('editar', id=orden.id) }}">Editar</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
